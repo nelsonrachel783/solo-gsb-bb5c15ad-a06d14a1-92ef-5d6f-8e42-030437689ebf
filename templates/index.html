@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>纸张对折打孔展开预览</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header>
+    <h1>纸张对折打孔展开预览</h1>
+    <p class="sub">设定纸张尺寸 → 依次添加对折 → 在折叠面上点击打孔 → 右侧实时查看展开效果</p>
+  </header>
+
+  <section class="controls">
+    <div class="group">
+      <h2>1. 纸张尺寸（mm）</h2>
+      <div class="row">
+        <label>宽 <input id="paperW" type="number" min="1" max="5000" step="1" value="210"></label>
+        <label>高 <input id="paperH" type="number" min="1" max="5000" step="1" value="297"></label>
+      </div>
+    </div>
+
+    <div class="group">
+      <h2>2. 添加对折（沿当前折叠面中线）</h2>
+      <div class="btns">
+        <button data-fold="v:left">垂直中线 · 左→右</button>
+        <button data-fold="v:right">垂直中线 · 右→左</button>
+        <button data-fold="h:top">水平中线 · 上→下</button>
+        <button data-fold="h:bottom">水平中线 · 下→上</button>
+      </div>
+      <div id="foldList" class="fold-list"></div>
+      <button id="clearFolds" class="link">清空折法</button>
+    </div>
+
+    <div class="group">
+      <h2>3. 打孔</h2>
+      <div class="row">
+        <label>孔半径(mm) <input id="holeR" type="number" min="0.1" max="50" step="0.5" value="2"></label>
+        <button id="clearPunches" class="link">清空孔位</button>
+      </div>
+      <p class="hint">在下方折叠面图上点击添加孔；点击已有孔附近可删除该孔。</p>
+    </div>
+  </section>
+
+  <main>
+    <section class="panel">
+      <h2>折叠面（点击打孔）</h2>
+      <svg id="foldedSvg" role="img" aria-label="折叠面"></svg>
+      <div class="legend">
+        <span class="swatch swatch-fold"></span>折痕边
+        <span class="swatch swatch-edge"></span>纸张边缘
+        <span class="swatch swatch-hole"></span>打孔点
+      </div>
+      <div id="foldedInfo" class="info"></div>
+    </section>
+
+    <section class="panel">
+      <h2>展开图（原纸）</h2>
+      <svg id="unfoldedSvg" role="img" aria-label="展开图"></svg>
+      <div class="legend">
+        <span class="swatch swatch-crease"></span>折痕
+        <span class="swatch swatch-hole"></span>展开后的孔
+      </div>
+      <div id="unfoldedInfo" class="info"></div>
+      <button id="downloadBtn" class="primary">下载展开 SVG</button>
+    </section>
+  </main>
+
+  <div id="messages"></div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
